@@ -60,4 +60,20 @@ CREATE TABLE actores(
 ALTER TABLE actores 
 ADD CONSTRAINT `fk_estado_actor` 
 FOREIGN KEY (`estado_actor_id`) 
-REFERENCES `estado_actores` (`id`);
+REFERENCES `estado_actores` (`id`)
+    ON DELETE RESTRICT 
+    ON UPDATE RESTRICT;
+
+
+INSERT INTO tipo_actores VALUES(1,'Alumno');
+INSERT INTO tipo_actores(perfil) VALUES('Docente');
+INSERT INTO tipo_actores(perfil) VALUES ('Cordinador'), ('Rector');
+
+UPDATE tipo_actores SET perfil = 'Estudiante' WHERE id IN (1,2,3);
+
+DELETE FROM tipo_actores WHERE id = 1;
+TRUNCATE tipo_actores;
+DELETE FROM tipo_actores;
+
+SELECT * FROM tipo_actores; 
+SELECT perfil, id, NOW() FROM tipo_actores; 
