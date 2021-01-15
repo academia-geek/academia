@@ -1,8 +1,15 @@
 const {Router} = require('express')
+const {cnn_mysql} = require('./../config/database')
 const router = Router()
 
 router.get('/actor',  (req, res) => {
-    return res.json([{nombre : "Carlos"}])
+    cnn_mysql.query(`SELECT * FROM actores`, (error, resulset, fields) => {
+        if(error){
+            return res.status(500).send('Se presento un error en la base de datos.')
+        }else{
+            return res.json(resulset)
+        }
+    })
 })
 
 router.get('/actor/:id',  (req, res) => {})
