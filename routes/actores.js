@@ -42,11 +42,11 @@ router.post('/actor', async (req, res) => {
             fecha_creacion,
             fecha_actualizacion
         } = req.body
-        const r = await cnn_mysql.promise().execute(`INSERT INTO actores(documento, tipo_documento, nombres, apellidos, contrasena, correo, telefono_celular, numero_expediente, genero, fecha_nacimiento, estado_actor_id, institucion_id, tipo_actor_id, fecha_creacion,fecha_actualizacion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, [documento, tipo_documento, nombres, apellidos, contrasena, correo, telefono_celular, numero_expediente, genero, fecha_nacimiento, estado_actor_id, institucion_id, tipo_actor_id, fecha_creacion, fecha_actualizacion])
+        const [rows, fields] = await cnn_mysql.promise().execute(`INSERT INTO actores(documento, tipo_documento, nombres, apellidos, contrasena, correo, telefono_celular, numero_expediente, genero, fecha_nacimiento, estado_actor_id, institucion_id, tipo_actor_id, fecha_creacion,fecha_actualizacion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, [documento, tipo_documento, nombres, apellidos, contrasena, correo, telefono_celular, numero_expediente, genero, fecha_nacimiento, estado_actor_id, institucion_id, tipo_actor_id, fecha_creacion, fecha_actualizacion])
 
-        if (r.affectedRows > 0) {
+        if (rows.affectedRows > 0) {
             res.json({
-                id: r.insertId,
+                id: rows.insertId,
                 documento: documento,
                 tipo_documento: tipo_documento,
                 nombres: nombres,
@@ -73,7 +73,34 @@ router.post('/actor', async (req, res) => {
 
 router.put('/actor/:id', (req, res) => { })
 
-router.patch('/actor/:id', (req, res) => { })
+router.patch('/actor/:id', (req, res) => {
+    try{
+        const id = req.params.id
+        const {
+            documento,
+            tipo_documento,
+            nombres,
+            apellidos,
+            contrasena,
+            correo,
+            telefono_celular,
+            numero_expediente,
+            genero,
+            fecha_nacimiento,
+            estado_actor_id,
+            institucion_id,
+            tipo_actor_id,
+            fecha_creacion,
+            fecha_actualizacion
+        } = req.body
+        console.log(id)
+        console.log(documento, tipo_documento)
+    }catch(e){
+        
+    }
+})
+
+
 
 router.delete('/actor/:id', (req, res) => { })
 
