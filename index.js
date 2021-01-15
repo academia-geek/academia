@@ -13,7 +13,9 @@ app.get('/estudiantes', (req, res) => {
     estudiantes.push({nombre: 'pepito',apellido : 'perez', edad : 20})
     res.json(estudiantes)
 })
+
+app.set('port',process.env.PORT || 5000);
     
-app.listen(8083, () => {
-    console.log("Aplicación corriendo en el puerto 8083!!")
+app.listen(app.get('port'), () => {
+    console.log(`Aplicación corriendo en el puerto ${app.get('port')}!!`)
 })
