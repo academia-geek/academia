@@ -8,6 +8,7 @@ app.get('/', (req, res) => {
     res.send("<h1>API Academia</h1>")
 })
 
+
 app.get('/estudiantes', (req, res) => {
     let estudiantes = []
     estudiantes.push({nombre: 'pepito',apellido : 'perez', edad : 20})
