@@ -67,7 +67,7 @@ router.post('/actor', async (req, res) => {
             res.json({})
         }
     } catch (e) {
-        console.log(e)
+        res.status(500).json({errorCode : e.errno, message : "Error en el servidor"})
     }
 })
 
