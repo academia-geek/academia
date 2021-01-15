@@ -109,4 +109,28 @@ router.patch('/actor/:id', async(req, res) => {
 
 router.delete('/actor/:id', (req, res) => { })
 
+router.get('/modulos-estudiantes', async(req, res) => {
+    const [rows] = await cnn_mysql.promise().query(`SELECT a.documento, CONCAT(a.nombres, ' ', a.apellidos) nombreActor, ta.perfil AS perfilActor, g.grado, g.letra, m.modulo
+    FROM actores AS a
+    INNER JOIN tipo_actores AS ta ON ta.id = a.tipo_actor_id
+    JOIN integrantes_grupos AS ig ON ig.estudiante_id = a.id
+    JOIN grupos g ON g.id = ig.grupo_id
+    JOIN clases c ON c.grupo_id = g.id
+    JOIN modulos m ON m.id = c.docente_id
+    WHERE ta.id = 1
+    ORDER BY g.institucion_id DESC`) 
+    return res.json(rows)
+})
+
+router.get('/numero-sesiones-estudiantes', async(req, res) => {
+    const [rows] = await cnn_mysql.promise().query(`SELECT a.documento, CONCAT(a.nombres, ' ', a.apellidos) nombreActor, ta.perfil AS perfilActor, COUNT(ig.id) AS numero_sesiones
+    FROM actores AS a
+    INNER JOIN tipo_actores AS ta ON ta.id = a.tipo_actor_id
+    JOIN integrantes_grupos AS ig ON ig.estudiante_id = a.id
+    JOIN asistencias_sesiones ase ON ase.integrante_grupo_id = ig.id
+    WHERE ta.id = 1
+    GROUP BY ig.id`) 
+    return res.json(rows)
+})
+
 module.exports = router
