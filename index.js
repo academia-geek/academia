@@ -5,9 +5,8 @@ const app = express()
 app.use(morgan('dev'))
     
 app.get('/', (req, res) => {
-    res.send("<h1>App</h1>")
+    res.send("<h1>API Academia</h1>")
 })
-
 
 app.get('/estudiantes', (req, res) => {
     let estudiantes = []
