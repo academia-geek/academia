@@ -1,8 +1,13 @@
 const express = require('express')
 const morgan = require('morgan')
 const app = express()
+const actores = require('./routes/actores')
+require('dotenv').config()
 
 app.use(morgan('dev'))
+    
+//Routes
+app.use('/api', actores)
     
 app.get('/', (req, res) => {
     res.send("<h1>API Academia</h1>")
